@@ -9,7 +9,7 @@
     <param name="port" value="$(arg ypspur_serial_port)"/>
   </node>
   <include file="$(find orne_box_bringup)/launch/includes/description.launch.xml">
-    <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find orne_box_description)/urdf/orne_box3.urdf'" />
+    <arg name="urdf_file" default="$(find orne_box_description)/urdf/orne_box3.urdf"/>
   </include>
   <include file="$(find orne_box_bringup)/launch/includes/teleop_joy.launch"/>
   <include file="$(find orne_box_bringup)/launch/includes/robot_localization.launch"/>  
