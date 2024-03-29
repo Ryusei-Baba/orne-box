@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot_name" default="box2"/>
-  <arg name="map_file" default="$(find orne_box_navigation_executor)/maps/mymap"/>
+  <arg name="map_file" default="$(find orne_box_navigation_executor)/maps/2024-03-15-07-37-37-001"/>
   <arg name="odom_topic" default="odom"/>
   <arg name="cmd_vel" default="cmd_vel"/>
   <node pkg="map_server" type="map_server" name="map_server_for_costmap" args="$(arg map_file)_for_costmap.yaml">
