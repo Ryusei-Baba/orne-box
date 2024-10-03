@@ -8,7 +8,7 @@
     <!-- Setting for 3D-LiDAR -->
     <xacro:VLP-16 parent="base_link" name="surestar" topic="/rfans_points" organize_cloud="false" hz="10" samples="440" gpu="false">
       <!-- <origin xyz="0.23 0 0.40" rpy="0 0 0"/> -->
-      <origin xyz="-0.105 0 0.80" rpy="0 0 0"/>
+      <origin xyz="-0.12 0 0.60" rpy="0 0 0"/>
     </xacro:VLP-16>
   </xacro:if>
   <xacro:if value="$(arg ignition_gazebo)">
