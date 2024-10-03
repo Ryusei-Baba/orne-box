@@ -1,0 +1,51 @@
+lidar_with_mirror_prismatic_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_prismatic_joint
+
+lidar_with_mirror_pitch_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_pitch_joint
+
+lidar_with_mirror_roll_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_roll_joint
+
+lidar_with_mirror_mirror1_prismatic_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_left_prismatic_joint
+
+lidar_with_mirror_mirror1_pitch_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_left_pitch_joint
+
+lidar_with_mirror_mirror1_roll_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_left_roll_joint
+
+lidar_with_mirror_mirror1_prismatic2_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_left_prismatic2_joint
+
+lidar_with_mirror_mirror2_prismatic_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_right_prismatic_joint
+
+lidar_with_mirror_mirror2_pitch_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_right_pitch_joint
+
+lidar_with_mirror_mirror2_roll_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_right_roll_joint
+
+lidar_with_mirror_mirror2_prismatic2_controller:
+    type  : position_controllers/JointPositionController
+    joint : lidar_with_mirror_right_prismatic2_joint
+
+caster_front_controller:
+    type  : position_controllers/JointPositionController
+    joint : caster_front_joint
+
+wheel_hinge_controller:
+    type  : position_controllers/JointPositionController
+    joint : wheel_hinge
