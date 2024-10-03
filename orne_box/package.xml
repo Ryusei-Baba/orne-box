@@ -9,7 +9,8 @@
   <depend>orne_box_description</depend>
   <depend>orne_box_bringup</depend>
   <depend>orne_box_setup</depend>
-  <!-- <depend>orne_box_navigation_executor</depend> -->
+  <depend>orne_box_navigation_executor</depend>
   <depend>orne_box_simulation</depend>
+  <depend>orne_box_lidar_with_mirror</depend>
   <export></export>
 </package>
