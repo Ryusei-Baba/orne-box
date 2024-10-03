@@ -3,9 +3,9 @@
     local-name: yp-spur
     version: master
 - git:
-    uri: https://github.com/rdc-autonomous-mobile-robot-project/adi_driver2.git
-    local-name: adi_driver2
-    version: main
+    uri: https://github.com/HanLeqi0117/adi_driver
+    local-name: adi_driver
+    version: ros2
 - git:
     uri: https://github.com/ros2/teleop_twist_joy
     local-name: teleop_twist_joy
