@@ -63,6 +63,13 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch robot_description  node."
         ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/teleop.launch.py'])
+        ),
+        launch.actions.LogInfo(
+            msg="Launch joy node."
+        ),
         #mixed wheel_odom and other (IMU etc..)
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -73,9 +80,16 @@ def generate_launch_description():
         ),
 
         # sensors
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/urg_node2.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch URG  node."
+        # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/urg_node2.launch.py'])
+                [launch_include_file_dir, '/mirror_lidar.launch.py'])
         ),
         launch.actions.LogInfo(
             msg="Launch URG  node."
@@ -86,5 +100,19 @@ def generate_launch_description():
         ),
         launch.actions.LogInfo(
             msg="Launch IMU node."
+        ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/rfans16.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch rfans16 node."
+        # ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/rfans16_filters.launch.py'])
+        ),
+        launch.actions.LogInfo(
+            msg="Launch rfans16_filters node."
         )
     ])
