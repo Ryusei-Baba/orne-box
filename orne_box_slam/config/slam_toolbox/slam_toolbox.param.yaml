@@ -1,81 +1,79 @@
 slam_toolbox:
   ros__parameters:
 
-    # Plugin params
-    solver_plugin: solver_plugins::CeresSolver
-    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
-    ceres_preconditioner: SCHUR_JACOBI
-    ceres_trust_strategy: LEVENBERG_MARQUARDT
-    ceres_dogleg_type: TRADITIONAL_DOGLEG
-    ceres_loss_function: None
+    # プラグインのパラメータ
+    solver_plugin: solver_plugins::CeresSolver # SLAMの最適化に使用されるソルバー。CeresSolverを指定。
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY # Ceresで使用される線形ソルバーの種類。大規模な問題に適している。
+    ceres_preconditioner: SCHUR_JACOBI # 反復型の線形ソルバーに使用される前処理。Schur補前処理を使用。
+    ceres_trust_strategy: LEVENBERG_MARQUARDT # 最適化アルゴリズムの信頼領域戦略を指定。Levenberg-Marquardt法を使用。
+    ceres_dogleg_type: TRADITIONAL_DOGLEG # Dogleg法を使用する場合、その種類を指定。従来型のDoglegを使用。
+    ceres_loss_function: None # 外れ値を処理するための損失関数。Noneは損失関数を使用しないことを意味。
 
-    # ROS Parameters
-    odom_frame: odom
-    map_frame: map
-    base_frame: base_footprint
-    scan_topic: /surestar_scan
-    mode: mapping #localization
+    # ROSのパラメータ
+    odom_frame: odom # オドメトリフレームの名前。通常は"odom"。
+    map_frame: map # マップフレームの名前。通常は"map"。
+    base_frame: base_footprint # ロボットの基底フレーム。通常は"base_footprint"。
+    scan_topic: /surestar_scan # LiDARスキャンデータが公開されるトピックの名前。
+    mode: mapping #localization # 動作モード。mapping（地図作成）かlocalization（位置推定）を選択。
 
-    # if you'd like to immediately start continuing a map at a given pose
-    # or at the dock, but they are mutually exclusive, if pose is given
-    # will use pose
-    #map_file_name: test_steve
-    # map_start_pose: [0.0, 0.0, 0.0]
-    #map_start_at_dock: true
+    # マップの作成を特定のポーズで開始したり、ドッキング地点から開始したい場合に使用
+    # map_file_name: test_steve # 既存のマップファイル名を指定する場合に使用。
+    # map_start_pose: [0.0, 0.0, 0.0] # 地図作成を特定の位置（x, y, yaw）から開始する場合に指定。
+    # map_start_at_dock: true # ドッキング地点から地図作成を開始するかどうか。
 
-    debug_logging: false
-    throttle_scans: 1
-    transform_publish_period: 0.02 #if 0 never publishes odometry
-    map_update_interval: 5.0
-    resolution: 0.05 #0.1
-    max_laser_range: 200.0 #for rastering images
-    minimum_time_interval: 0.5
-    transform_timeout: 0.2
-    tf_buffer_duration: 30.0
-    stack_size_to_use: 40000000 #// program needs a larger stack size to serialize large maps
-    enable_interactive_mode: true
+    debug_logging: false # デバッグ情報をログに出力するかどうか。
+    throttle_scans: 1 # スキャンのスロットリングを設定。1は全スキャンを使用。
+    transform_publish_period: 0.02 # トランスフォームの公開間隔。0に設定すると公開されない。
+    map_update_interval: 10.0 # 5.0 # 地図の更新間隔（秒単位）。
+    resolution: 0.1 # 地図の解像度（メートル）。0.1mごとに分解。
+    max_laser_range: 200.0 # LiDARの最大範囲（メートル）。
+    minimum_time_interval: 0.5 # スキャン間の最小時間間隔（秒）。
+    transform_timeout: 0.2 # トランスフォームのタイムアウト（秒）。
+    tf_buffer_duration: 30.0 # TFのバッファ期間（秒）。
+    stack_size_to_use: 40000000 # 大きな地図をシリアライズするために使用されるスタックサイズ。
+    enable_interactive_mode: true # インタラクティブモードを有効にするかどうか。
 
-    # General Parameters
-    use_scan_matching: true
-    use_scan_barycenter: true
-    minimum_travel_distance: 0.5
-    minimum_travel_heading: 0.5
-    scan_buffer_size: 10
-    scan_buffer_maximum_scan_distance: 10.0
-    link_match_minimum_response_fine: 0.1  
-    link_scan_maximum_distance: 1.5
-    loop_search_maximum_distance: 3.0
-    do_loop_closing: true 
-    loop_match_minimum_chain_size: 10           
-    loop_match_maximum_variance_coarse: 3.0  
-    loop_match_minimum_response_coarse: 0.35    
-    loop_match_minimum_response_fine: 0.45
+    # 一般的なパラメータ
+    use_scan_matching: true # スキャンマッチングを使用するかどうか。
+    use_scan_barycenter: true # スキャンの重心を使用するかどうか。
+    minimum_travel_distance: 0.5 # スキャンの間に移動する最小距離（メートル）。
+    minimum_travel_heading: 0.5 # スキャンの間に変化する最小方向（ラジアン）。
+    scan_buffer_size: 10 # スキャンのバッファサイズ。
+    scan_buffer_maximum_scan_distance: 10.0 # バッファ内でのスキャンの最大距離（メートル）。
+    link_match_minimum_response_fine: 0.1 # 細かいリンクマッチングの最小応答値。
+    link_scan_maximum_distance: 1.5 # リンクスキャンの最大距離（メートル）。
+    loop_search_maximum_distance: 3.0 # ループ検索の最大距離（メートル）。
+    do_loop_closing: true # ループクロージングを行うかどうか。
+    loop_match_minimum_chain_size: 10 # ループマッチングの最小チェーンサイズ。
+    loop_match_maximum_variance_coarse: 3.0 # 粗いループマッチングの最大分散。
+    loop_match_minimum_response_coarse: 0.35 # 粗いループマッチングの最小応答値。
+    loop_match_minimum_response_fine: 0.45 # 細かいループマッチングの最小応答値。
 
-    # Correlation Parameters - Correlation Parameters
-    correlation_search_space_dimension: 0.5
-    correlation_search_space_resolution: 0.01
-    correlation_search_space_smear_deviation: 0.1 
+    # 相関パラメータ - 相関パラメータ
+    correlation_search_space_dimension: 0.5 # 相関検索空間の次元（メートル）。
+    correlation_search_space_resolution: 0.01 # 相関検索空間の解像度（メートル）。
+    correlation_search_space_smear_deviation: 0.1 # 相関検索空間のスミア偏差。
 
-    # Correlation Parameters - Loop Closure Parameters
-    loop_search_space_dimension: 8.0
-    loop_search_space_resolution: 0.05
-    loop_search_space_smear_deviation: 0.03
+    # 相関パラメータ - ループクロージャパラメータ
+    loop_search_space_dimension: 8.0 # ループ検索空間の次元（メートル）。
+    loop_search_space_resolution: 0.05 # ループ検索空間の解像度（メートル）。
+    loop_search_space_smear_deviation: 0.03 # ループ検索空間のスミア偏差。
 
-    # Scan Matcher Parameters
-    distance_variance_penalty: 0.5      
-    angle_variance_penalty: 1.0    
+    # スキャンマッチャーパラメータ
+    distance_variance_penalty: 1.0 # 0.5 # 距離の分散に対するペナルティ。
+    angle_variance_penalty: 1.0 # 角度の分散に対するペナルティ。
 
-    fine_search_angle_offset: 0.00349     
-    coarse_search_angle_offset: 0.349   
-    coarse_angle_resolution: 0.0349        
-    minimum_angle_penalty: 0.9
-    minimum_distance_penalty: 0.5
-    use_response_expansion: true
+    fine_search_angle_offset: 0.00349 # 細かい検索の角度オフセット（ラジアン）。
+    coarse_search_angle_offset: 0.349 # 粗い検索の角度オフセット（ラジアン）。
+    coarse_angle_resolution: 0.0349 # 粗い検索の角度解像度（ラジアン）。
+    minimum_angle_penalty: 0.9 # 最小角度ペナルティ。
+    minimum_distance_penalty: 0.5 # 最小距離ペナルティ。
+    use_response_expansion: true # 応答拡張を使用するかどうか。
 
 map_saver:
   ros__parameters:
-    use_sim_time: False
-    save_map_timeout: 5.0
-    free_thresh_default: 0.25
-    occupied_thresh_default: 0.65
-    map_subscribe_transient_local: True
+    use_sim_time: False # シミュレーション時間を使用するかどうか。
+    save_map_timeout: 5.0 # 地図を保存する際のタイムアウト（秒）。
+    free_thresh_default: 0.25 # マップの空き領域とみなされる閾値。
+    occupied_thresh_default: 0.65 # マップの占有領域とみなされる閾値。
+    map_subscribe_transient_local: True # マップを購読する際に一時的なローカルを使用するかどうか。
