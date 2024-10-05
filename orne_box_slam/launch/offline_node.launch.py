@@ -35,7 +35,7 @@ def generate_launch_description():
         Node(
             package='cartographer_ros',
             executable='cartographer_offline_node',
-            name='occupancy_offline_node',
+            name='offline_node',
             output='screen',
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-resolution', resolution, '-publish_period_sec', publish_period_sec]),
