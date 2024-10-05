@@ -101,6 +101,13 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch IMU node."
         ),
+        IncludeLaunchDescription(    
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/imu_filter.launch.py'])
+        ),
+        launch.actions.LogInfo(
+            msg="Launch IMU Filter node."
+        ),
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource(
         #         [launch_include_file_dir, '/rfans16.launch.py'])
