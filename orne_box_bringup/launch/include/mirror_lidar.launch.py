@@ -35,11 +35,11 @@ def generate_launch_description():
         'config/urg/params_mirror_lidar.yaml'
     )
 
-    config_file_path_lidar = os.path.join(
-        get_package_share_directory('orne_box_lidar_with_mirror'),
-        'config',
-        'lidar_with_mirror_control.yaml'
-    )
+    # config_file_path_lidar = os.path.join(
+    #     get_package_share_directory('orne_box_lidar_with_mirror'),
+    #     'config',
+    #     'lidar_with_mirror_control.yaml'
+    # )
 
     # パラメータファイルのロード
     with open(config_file_path_urg, 'r') as file:
@@ -90,27 +90,33 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('auto_start')),
     )
 
-    # コントローラーやノードの起動
-    joint_state_broadcaster_spawner = Node(
-        package='ros2_control_node',
-        executable='spawner',
-        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
+    # # コントローラーやノードの起動
+    # joint_state_broadcaster_spawner = Node(
+    #     package='ros2_control_node',
+    #     executable='spawner',
+    #     arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
+    #     output='screen'
+    # )
 
-    lidar_with_mirror_controller_spawner = Node(
-        package='ros2_control_node',
-        executable='spawner',
-        arguments=['orne_box_lidar_with_mirror_controllers', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
+    # lidar_with_mirror_controller_spawner = Node(
+    #     package='ros2_control_node',
+    #     executable='spawner',
+    #     arguments=['orne_box_lidar_with_mirror_controllers', '--controller-manager', '/controller_manager'],
+    #     output='screen'
+    # )
 
-    merged_data_node = Node(
+    # merged_data_node = Node(
+    #     package='orne_box_lidar_with_mirror',
+    #     executable='merge_measured_data.py',
+    #     name='merged_data_node',
+    #     output='screen'
+    # )
+    Node(
         package='orne_box_lidar_with_mirror',
         executable='merge_measured_data.py',
         name='merged_data_node',
         output='screen'
-    )
+        )
 
     # パラメータについて
     # auto_start      : 起動時自動でActive状態まで遷移 (default)true
@@ -124,7 +130,7 @@ def generate_launch_description():
         lifecycle_node,
         urg_node2_node_configure_event_handler,
         urg_node2_node_activate_event_handler,
-        joint_state_broadcaster_spawner,
-        lidar_with_mirror_controller_spawner,
-        merged_data_node
+        # joint_state_broadcaster_spawner,
+        # lidar_with_mirror_controller_spawner,
+        # merged_data_node
     ])

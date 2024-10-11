@@ -24,12 +24,7 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch ypspur coordinator."
         ),
-        # Node(
-        #     package='icart_mini_driver',
-        #     namespace='ypspur_coordinator',
-        #     executable='ypspur_coordinator_bridge',
-        #     parameters=[icart_mini_param]
-        # ),
+        
         launch.actions.ExecuteProcess(
             cmd=[ypspur_coordinator_path,ypspur_param],
             shell=True,
@@ -43,7 +38,7 @@ def generate_launch_description():
             package='orne_box_bringup',
             executable='icart_mini_driver',
             parameters=[{'odom_frame_id':'odom',
-                        'base_frame_id':'base_link',
+                        'base_frame_id':'base_footprint',
                         'Hz':40,
                         'left_wheel_joint':'left_wheel_joint',
                         'right_wheel_joint':'right_wheel_joint',
@@ -55,20 +50,13 @@ def generate_launch_description():
                         'publish_odom_tf':True
             }]
         ),
-        #robot_state_publisher and joint_state_publisher
+        # robot_state_publisher and joint_state_publisher
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [launch_include_file_dir, '/description.launch.py'])
         ),
         launch.actions.LogInfo(
             msg="Launch robot_description  node."
-        ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/teleop.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch joy node."
         ),
         #mixed wheel_odom and other (IMU etc..)
         IncludeLaunchDescription(
@@ -78,8 +66,15 @@ def generate_launch_description():
         launch.actions.LogInfo(
             msg="Launch robot_localization_ekf node."
         ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [launch_include_file_dir, '/teleop.launch.py'])
+        ),
+        launch.actions.LogInfo(
+            msg="Launch joy node."
+        ),
 
-        # sensors
+        # # sensors
         # IncludeLaunchDescription(
         #     PythonLaunchDescriptionSource(
         #         [launch_include_file_dir, '/urg_node2.launch.py'])
@@ -87,34 +82,27 @@ def generate_launch_description():
         # launch.actions.LogInfo(
         #     msg="Launch URG  node."
         # ),
+        # IncludeLaunchDescription(
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/adis16465.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch IMU node."
+        # ),
+        # IncludeLaunchDescription(    
+        #     PythonLaunchDescriptionSource(
+        #         [launch_include_file_dir, '/imu_filter.launch.py'])
+        # ),
+        # launch.actions.LogInfo(
+        #     msg="Launch IMU Filter node."
+        # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [launch_include_file_dir, '/mirror_lidar.launch.py'])
         ),
         launch.actions.LogInfo(
-            msg="Launch URG  node."
+            msg="Launch mirror_lidar  node."
         ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/adis16465.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch IMU node."
-        ),
-        IncludeLaunchDescription(    
-            PythonLaunchDescriptionSource(
-                [launch_include_file_dir, '/imu_filter.launch.py'])
-        ),
-        launch.actions.LogInfo(
-            msg="Launch IMU Filter node."
-        ),
-        # IncludeLaunchDescription(
-        #     PythonLaunchDescriptionSource(
-        #         [launch_include_file_dir, '/rfans16.launch.py'])
-        # ),
-        # launch.actions.LogInfo(
-        #     msg="Launch rfans16 node."
-        # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [launch_include_file_dir, '/rfans16_filters.launch.py'])
