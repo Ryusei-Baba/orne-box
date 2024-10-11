@@ -14,3 +14,15 @@
     uri: https://github.com/masakifujiwara1/waypoint_manager2.git
     local-name: waypoint_manager2
     version: tsukuba2023
+- git:
+    uri: https://github.com/haruyama8940/rfans_driver_ros2.git
+    local-name: rfans_driver_ros2
+    version: master
+- git:
+    uri: https://github.com/haruyama8940/rfans_driver_msgs.git
+    local-name: rfans_driver_msgs
+    version: main
+- git:
+    uri: https://github.com/masakifujiwara1/joy_command.git
+    local-name: joy_command
+    version: main
