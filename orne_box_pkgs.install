@@ -26,3 +26,7 @@
     uri: https://github.com/masakifujiwara1/joy_command.git
     local-name: joy_command
     version: main
+- git:
+    uri: https://github.com/Hokuyo-aut/urg_node2.git
+    local-name: urg_node2
+    version: main
