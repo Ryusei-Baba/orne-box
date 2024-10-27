@@ -21,7 +21,7 @@ options = {
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
   tracking_frame = "base_link",
-  published_frame = "base_link",
+  published_frame = "base_footprint",
   odom_frame = "odom",
   provide_odom_frame = true,
   publish_frame_projected_to_2d = false,
@@ -59,7 +59,7 @@ POSE_GRAPH.constraint_builder.log_matches = true --有効にすると、ルー�
 
 POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.linear_search_window = 7 --最適なスキャンアライメントを見つけるための最小の線形探索 Window。
 POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.angular_search_window = math.rad(30.) --最適なスキャンアライメントが得られる最小の角度探索 Window。
-POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.branch_and_bound_depth = 7 --事前計算に使用するグリッドの数。
+POSE_GRAPH.constraint_builder.fast_correlative_scan_matcher.branch_and_bound_depth = 10 --7 事前計算に使用するグリッドの数。
 
 POSE_GRAPH.constraint_builder.ceres_scan_matcher.occupied_space_weight = 20 --各コスト functor のスケーリング値
 POSE_GRAPH.constraint_builder.ceres_scan_matcher.translation_weight = 10 
@@ -89,7 +89,7 @@ POSE_GRAPH.optimization_problem.fix_z_in_3d = false
 
 POSE_GRAPH.optimization_problem.ceres_solver_options.use_nonmonotonic_steps = false
 POSE_GRAPH.optimization_problem.ceres_solver_options.max_num_iterations = 50
-POSE_GRAPH.optimization_problem.ceres_solver_options.num_threads = 7
+POSE_GRAPH.optimization_problem.ceres_solver_options.num_threads = 1
 
 POSE_GRAPH.max_num_final_iterations = 200
 POSE_GRAPH.global_sampling_ratio = 0.003
@@ -104,10 +104,10 @@ POSE_GRAPH.global_constraint_search_after_n_seconds = 10
 --LOCAL SLAM SETTING
 ------------------------------------------------------------------------------------------------
 TRAJECTORY_BUILDER_2D.use_imu_data = false
-TRAJECTORY_BUILDER_2D.min_range = 0.1
-TRAJECTORY_BUILDER_2D.max_range = 40
-TRAJECTORY_BUILDER_2D.min_z = -0.8
-TRAJECTORY_BUILDER_2D.max_z = 2
+TRAJECTORY_BUILDER_2D.min_range = 0.5
+TRAJECTORY_BUILDER_2D.max_range = 200
+TRAJECTORY_BUILDER_2D.min_z = -0.1
+TRAJECTORY_BUILDER_2D.max_z = 30
 TRAJECTORY_BUILDER_2D.missing_data_ray_length = 5
 TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_2D.voxel_filter_size = 0.025
@@ -126,9 +126,9 @@ TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.angular_search_window =
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 1e-1 --1e-1
 TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 1e-1
 
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 1
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 90
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 10 --10 オドメトリとスキャンに関する直線移動の重み
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 140 --40 オドメトリとスキャンに関する回転移動の重み
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 30 --40 オドメトリとスキャンに関する回転移動の重み
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.ceres_solver_options.use_nonmonotonic_steps = false
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.ceres_solver_options.max_num_iterations = 20
 TRAJECTORY_BUILDER_2D.ceres_scan_matcher.ceres_solver_options.num_threads = 1
@@ -177,6 +177,6 @@ TRAJECTORY_BUILDER_2D.submaps.range_data_inserter.tsdf_range_data_inserter.updat
 TRAJECTORY_BUILDER_2D.submaps.range_data_inserter.tsdf_range_data_inserter.update_weight_distance_cell_to_hit_kernel_bandwidth = 0.5
 
 MAP_BUILDER.use_trajectory_builder_2d = true
-MAP_BUILDER.num_background_threads = 8
+MAP_BUILDER.num_background_threads = 15
 
 return options

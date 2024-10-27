@@ -15,7 +15,7 @@ def generate_launch_description():
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
                                                   cartographer_prefix, 'config','cartographer'))
     configuration_basename = LaunchConfiguration('configuration_basename',
-                                                 default='orne-box3_2d.lua')
+                                                 default='orne-box3_3d.lua')
 
     resolution = LaunchConfiguration('resolution', default='0.1')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
@@ -45,7 +45,9 @@ def generate_launch_description():
             parameters=[{'use_sim_time': use_sim_time}],
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename],
-            remappings=[('/scan','/surestar_scan')]
+            remappings=[
+                ('/points2', '/rfans/surestar_points'),
+                ('/imu','/imu/data_raw')],
             ),
         DeclareLaunchArgument(
             'resolution',
@@ -59,6 +61,11 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/occupancy_grid.launch.py']),
+            launch_arguments={'use_sim_time': use_sim_time, 'resolution': resolution,
+                              'publish_period_sec': publish_period_sec}.items(),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/offline_node.launch.py']),
             launch_arguments={'use_sim_time': use_sim_time, 'resolution': resolution,
                               'publish_period_sec': publish_period_sec}.items(),
         ),
