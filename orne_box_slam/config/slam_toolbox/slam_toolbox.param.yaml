@@ -30,7 +30,7 @@ slam_toolbox:
     throttle_scans: 1 # スキャンの使用頻度。1は全スキャンを使用。
     transform_publish_period: 0.1 # 0.02 トランスフォームの公開間隔。0で公開しない。
     map_update_interval: 5.0 # 地図の更新間隔（秒単位）。
-    resolution: 0.05 # 地図の解像度（例: 0.1mごとに分解）。
+    resolution: 0.1 # 地図の解像度（例: 0.1mごとに分解）。
     max_laser_range: 200.0 # LiDARの最大距離（メートル）。
     minimum_time_interval: 0.5 # スキャン間の最小時間間隔（秒）。
     transform_timeout: 0.2 # トランスフォームのタイムアウト（秒）。
@@ -56,7 +56,7 @@ slam_toolbox:
     loop_match_minimum_response_coarse: 0.35 # 粗いループマッチングの最小応答値。
     loop_match_minimum_response_fine: 1.0 # 0.45 細かいループマッチングの最小応答値。
     loop_closure_enable_logging: true # ループクロージャのロギングを有効にするかどうか。
-    loop_closure_variance_threshold: 1.0 # ループクロージャの分散しきい値。
+    loop_closure_variance_threshold: 100.0 # 1.0 ループクロージャの分散しきい値。
 
     # --- 相関パラメータ ---
     correlation_search_space_dimension: 0.3 # 0.5 相関検索空間のサイズ（メートル）。
@@ -72,7 +72,7 @@ slam_toolbox:
 
     # --- スキャンマッチャ設定 ---
     distance_variance_penalty: 1.5 # 距離の分散に対するペナルティ。
-    angle_variance_penalty: 1.5 # 角度の分散に対するペナルティ。
+    angle_variance_penalty: 1.5 # 1.5 角度の分散に対するペナルティ。
     fine_search_angle_offset: 0.00349 # 細かい検索の角度オフセット（ラジアン）。
     coarse_search_angle_offset: 0.349 # 粗い検索の角度オフセット（ラジアン）。
     coarse_angle_resolution: 0.0349 # 粗い検索の角度解像度（ラジアン）。
