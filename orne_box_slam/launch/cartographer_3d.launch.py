@@ -10,12 +10,12 @@ from launch.substitutions import ThisLaunchFileDir
 
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     cartographer_prefix = get_package_share_directory('orne_box_slam')
     cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
                                                   cartographer_prefix, 'config','cartographer'))
     configuration_basename = LaunchConfiguration('configuration_basename',
-                                                 default='box_lds_3d.lua')
+                                                 default='orne-box3_3d.lua')
 
     resolution = LaunchConfiguration('resolution', default='0.1')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
@@ -34,7 +34,7 @@ def generate_launch_description():
             description='Name of lua file for cartographer'),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='false',
+            default_value='true',
             description='Use simulation (Gazebo) clock if true'),
 
         # Node(
@@ -54,8 +54,8 @@ def generate_launch_description():
             arguments=['-configuration_directory', cartographer_config_dir,
                        '-configuration_basename', configuration_basename],
             remappings = [
-                ('points2', 'rfans/surestar_points'),
-                ('imu','imu/data_raw')],
+                ('/points2', '/surestar_points'),
+                ('/imu','/imu/data')],
             output = 'screen'
             ),
         DeclareLaunchArgument(

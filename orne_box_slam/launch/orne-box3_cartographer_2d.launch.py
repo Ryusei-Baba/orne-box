@@ -47,8 +47,7 @@ def generate_launch_description():
                        '-configuration_basename', configuration_basename],
             remappings=[
                 ('/scan','/surestar_scan'),
-                ('/odom','/odometry/filtered'),
-                ('/imu','/imu/data')
+                ('/odom','/odometry/filtered')
                 ],
             ),
         DeclareLaunchArgument(
