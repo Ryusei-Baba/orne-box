@@ -18,6 +18,7 @@
 --三次元測域センサでpcdの三次元地図を作成する設定--
 ---------------------------------------------------
 
+-- $ros2 service call /write_state cartographer_ros_msgs/srv/WriteState "{filename: '/home/username/tsukuba.pbstream'}"
 
 VOXEL_SIZE = 0.05
 
@@ -26,7 +27,7 @@ include "transform.lua"
 options = {
 
   --pbstream作成時に指定したtracking_frameと同じものを指定
-  tracking_frame = "imu_link",
+  tracking_frame = "imu",
 
 
   pipeline = {
@@ -34,62 +35,86 @@ options = {
       --地図書き出し時に使用する測距値の範囲を指定
       action = "min_max_range_filter",
       min_range = 1.,
-      max_range = 80.,
+      max_range = 200.,
     },
     {
       --移動している物体の点群を削除 
       action = "voxel_filter_and_remove_moving_objects",
-      voxel_size = 0.05,
+      voxel_size = VOXEL_SIZE,
     },
     {
       action = "dump_num_points",
     },
 
+    {
+      action = "intensity_to_color",
+      min_intensity = 0.,
+      max_intensity = 127.,
+    },
+
     -- Gray X-Rays. These only use geometry to color pixels.
-    {
-      action = "write_xray_image",
-      voxel_size = VOXEL_SIZE,
-      filename = "xray_yz_all",
-      transform = YZ_TRANSFORM,
-    },
-    {
-      action = "write_xray_image",
-      voxel_size = VOXEL_SIZE,
-      filename = "xray_xy_all",
-      transform = XY_TRANSFORM,
-    },
-    {
-      action = "write_xray_image",
-      voxel_size = VOXEL_SIZE,
-      filename = "xray_xz_all",
-      transform = XZ_TRANSFORM,
-    },
+    -- {
+    --   action = "write_xray_image",
+    --   voxel_size = VOXEL_SIZE,
+    --   filename = "xray_yz_all",
+    --   transform = YZ_TRANSFORM,
+    -- },
+    -- {
+    --   action = "write_xray_image",
+    --   voxel_size = VOXEL_SIZE,
+    --   filename = "xray_xy_all",
+    --   transform = XY_TRANSFORM,
+    -- },
+    -- {
+    --   action = "write_xray_image",
+    --   voxel_size = VOXEL_SIZE,
+    --   filename = "xray_xz_all",
+    --   transform = XZ_TRANSFORM,
+    -- },
 
     -- Now we recolor our points by frame and write another batch of X-Rays. It
     -- is visible in them what was seen by the horizontal and the vertical
     -- laser.
-    {
-      action = "color_points",
-      frame_id = "horizontal_vlp16_link",
-      color = { 255., 0., 0. },
-    },
-    {
-      action = "color_points",
-      frame_id = "vertical_vlp16_link",
-      color = { 0., 255., 0. },
-    },
+    -- {
+    --   action = "color_points",
+    --   frame_id = "horizontal_vlp16_link",
+    --   color = { 255., 0., 0. },
+    -- },
+    -- {
+    --   action = "color_points",
+    --   frame_id = "vertical_vlp16_link",
+    --   color = { 0., 255., 0. },
+    -- },
 
-    {
-      action = "write_xray_image",
-      voxel_size = VOXEL_SIZE,
-      filename = "xray_xy_all_color",
-      transform = XY_TRANSFORM,
-    },
+    -- {
+    --   action = "write_xray_image",
+    --   voxel_size = VOXEL_SIZE,
+    --   filename = "xray_xy_all_color",
+    --   transform = XY_TRANSFORM,
+    -- },
 
     {
       --pcd形式で出力
       action = "write_pcd",
-      filename = "points.pcd",
+      filename = "cartographer.pcd",
+    },
+
+    {
+      --pgm形式で出力
+      action = "write_pgm",
+      filename = "cartographer.pgm",
+    },
+
+    {
+      action = "write_probability_grid",
+      draw_trajectories = false,
+      resolution = 0.1,
+      range_data_inserter = {
+        insert_free_space = true,
+        hit_probability = 0.70,
+        miss_probability = 0.49,
+      },
+      filename = "probability_grid",
     },
   }
 }
