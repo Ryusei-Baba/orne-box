@@ -20,7 +20,7 @@
 
 -- $ros2 service call /write_state cartographer_ros_msgs/srv/WriteState "{filename: '/home/username/tsukuba.pbstream'}"
 
-VOXEL_SIZE = 0.05
+VOXEL_SIZE = 0.1
 
 include "transform.lua"
 
@@ -35,7 +35,12 @@ options = {
       --地図書き出し時に使用する測距値の範囲を指定
       action = "min_max_range_filter",
       min_range = 1.,
-      max_range = 200.,
+      max_range = 100.,
+    },
+    {
+      action = "vertical_range_filter",
+      min_z = 0.0,
+      max_z = 3.0
     },
     {
       --移動している物体の点群を削除 
