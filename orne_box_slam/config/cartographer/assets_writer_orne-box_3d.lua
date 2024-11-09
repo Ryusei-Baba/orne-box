@@ -100,12 +100,6 @@ options = {
     },
 
     {
-      --pgm形式で出力
-      action = "write_pgm",
-      filename = "cartographer.pgm",
-    },
-
-    {
       action = "write_probability_grid",
       draw_trajectories = false,
       resolution = 0.1,
