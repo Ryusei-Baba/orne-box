@@ -18,8 +18,6 @@
 --三次元測域センサでpcdの三次元地図を作成する設定--
 ---------------------------------------------------
 
--- $ros2 service call /write_state cartographer_ros_msgs/srv/WriteState "{filename: '/home/username/tsukuba.pbstream'}"
-
 VOXEL_SIZE = 0.1
 
 include "transform.lua"
@@ -39,8 +37,8 @@ options = {
     },
     {
       action = "vertical_range_filter",
-      min_z = 0.0,
-      max_z = 3.0
+      min_z = -0.1,
+      max_z = 5.0
     },
     {
       --移動している物体の点群を削除 
@@ -110,7 +108,7 @@ options = {
       resolution = 0.1,
       range_data_inserter = {
         insert_free_space = true,
-        hit_probability = 0.70,
+        hit_probability = 0.55,
         miss_probability = 0.49,
       },
       filename = "probability_grid",

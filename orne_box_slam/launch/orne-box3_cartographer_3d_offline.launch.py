@@ -1,3 +1,5 @@
+# map_save = $ros2 service call /write_state cartographer_ros_msgs/srv/WriteState "{filename: '/home/username/tsukuba.pbstream'}"
+
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription

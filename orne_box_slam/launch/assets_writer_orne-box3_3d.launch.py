@@ -17,8 +17,8 @@ def generate_launch_description():
         'urdf_filename', 
         default_value=os.path.join(
             FindPackageShare('orne_box_description').find('orne_box_description'), 'urdf/orne_box_lidar_with_mirror.urdf'))
-    bag_filenames_arg = DeclareLaunchArgument('bag_filenames', default_value='/home/ryusei22/rosbag/241026_tsukuba_all2')
-    pose_graph_filename_arg = DeclareLaunchArgument('pose_graph_filename', default_value='/home/ryusei22/rosbag/241026_tsukuba_all2.pbstream')
+    bag_filenames_arg = DeclareLaunchArgument('bag_filenames', default_value='/home/ryusei/rosbag/241026_tsukuba_all2')
+    pose_graph_filename_arg = DeclareLaunchArgument('pose_graph_filename', default_value='/home/ryusei/rosbag/241026_tsukuba_all2.pbstream')
 
     ## ***** Nodes *****
     cartographer_node = Node(
